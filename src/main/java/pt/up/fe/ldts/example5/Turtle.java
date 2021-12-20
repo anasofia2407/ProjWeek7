@@ -1,44 +1,32 @@
 package pt.up.fe.ldts.example5;
 
 public class Turtle {
-    private int row;
-    private int column;
-    private char direction;
+    private Position p;
+
 
     public Turtle(int row, int column, char direction) {
-        this.row = row;
-        this.column = column;
-        this.direction = direction;
+        this.p= new Position(row,column,direction);
+
     }
 
     public int getRow() {
-        return row;
+        return p.getRow();
     }
 
     public int getColumn() {
-        return column;
+        return p.getColumn();
     }
+    public char getDirection(){return p.getDirection();}
 
-    public char getDirection() {
-        return direction;
-    }
+    public void setP(Position p){this.p=p;}
 
     public void execute(char command) {
         if (command == 'L') { // ROTATE LEFT
-            if (direction == 'N') direction = 'W';
-            else if (direction == 'W') direction = 'S';
-            else if (direction == 'S') direction = 'E';
-            else if (direction == 'E') direction = 'N';
+            setP(new L(p).execute());
         } else if (command == 'R') { // ROTATE RIGHT
-            if (direction == 'N') direction = 'E';
-            else if (direction == 'E') direction = 'S';
-            else if (direction == 'S') direction = 'W';
-            else if (direction == 'W') direction = 'N';
+            setP(new R(p).execute());
         } else if (command == 'F'){ // MOVE FORWARD
-            if (direction == 'N') row--;
-            if (direction == 'S') row++;
-            if (direction == 'W') column--;
-            if (direction == 'E') column++;
+            setP(new F(p).execute());
         }
     }
 }
